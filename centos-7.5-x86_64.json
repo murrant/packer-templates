@@ -54,7 +54,12 @@
     "shutdown_command": "sudo systemctl poweroff",
     "vboxmanage": [
       ["modifyvm", "{{.Name}}", "--memory", "{{user `memory`}}"],
-      ["modifyvm", "{{.Name}}", "--cpus", "{{user `cpus`}}"]
+      ["modifyvm", "{{.Name}}", "--cpus", "{{user `cpus`}}"],
+      ["modifyvm", "{{.Name}}", "--audio", "none"],
+      ["modifyvm", "{{.Name}}", "--usb", "off"],
+      ["modifyvm", "{{.Name}}", "--vram", "12"],
+      [ "modifyvm", "{{.Name}}", "--natpf1", "ssh,tcp,,2023,,22" ],
+      [ "modifyvm", "{{.Name}}", "--natpf1", "http,tcp,,8080,,80" ]
     ],
     "export_opts":
     [
@@ -125,6 +130,8 @@
       "scripts/centos/locale.sh",
       "scripts/centos-7.5/cleanup.sh",
       "scripts/centos/librenms.sh",
+      "scripts/common/librenms.sh",
+      "scripts/centos/librenms-post.sh",
       "scripts/centos/syslog-ng.sh",
       "scripts/centos/oxidized.sh",
       "scripts/common/finish.sh",
